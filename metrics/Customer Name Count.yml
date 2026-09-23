@@ -1,0 +1,10 @@
+unique_name: Customer Name Count
+object_type: metric
+label: Customer Name Count
+description: Distinct customer NAMES (800). Use this, not Customer Count, to match the Tableau workbook's
+  countD([Customer Name]).
+calculation_method: count distinct
+format: general number
+dataset: fact_order_line
+column: customer_name
+unrelated_dimensions_handling: repeat

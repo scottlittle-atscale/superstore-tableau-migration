@@ -53,6 +53,10 @@ Target: **BigQuery** `atscale-sales-demo.SUPERSTORE_TABLEAU_DEMO`.
 - **Order ID, Ship Mode and Return Status are degenerate dimensions** (`is_degenerate: true`, no `type:`, bound to `fact_order_line`, listed in the model `dimensions:` block per Rule 12). Order ID is exposed deliberately: it is the grain every `{FIXED [Order ID]: ...}` LOD in the workbooks aggregates to.
 - **`is_unique_key` set only where the profile proves it** (Rule 16): `Day`/`date_key`, `Product`/`product_key`, `Customer`/`customer_id`, `Postal Code`/`geo_key`, `Sales Person`/`sales_person`. The three degenerate dims carry no flag.
 - **Returns folded onto the fact, not modelled as its own dimension table** — a `COALESCE(returned,'No')` calculated column gives a clean Yes/No slicer and keeps the returned-sales metrics fact-sourced, avoiding the "metric on a dimension dataset" trap (Rule 20).
+- **`Day` level surfaces `date_key` (a real DATE) as its `name_column`**, not a cast string. Tableau's connector needs a genuine date to offer native truncation, continuous axes and date-range filters; a string-typed day gives discrete text that sorts alphabetically.
+- **`First Order Date Key` is a numeric `YYYYMMDD` measure, not a date.** A `minimum`-over-a-DATE metric loads in AtScale but breaks Tableau at data-source load with *"Ignoring properties for '[X]', can't interpret field as measure"* — Tableau measures must be numeric.
+- **`Sales per Customer` divides by `Customer Name Count` (800), not `Customer Count` (804).** The Tableau workbook uses `countD([Customer Name])`; `customer_name` is denormalized onto the fact so the distinct count stays fact-sourced. Both counts remain exposed.
+- **`Order Profitable?` is deliberately NOT materialized.** Tested live: Tableau's `{FIXED [Order ID]: SUM([Profit])}` pushes down to AtScale as a derived-table self-join and returns exactly correct numbers, so no model-side flag is needed.
 - **Ship-axis MDX limited to `Sales Shipped Year to Date`** — Rule 4 ties the time axis to the verb in the metric name, and only that metric carries a "shipped" verb. All other time-intelligence uses the Order Date role-play.
 
 ## Generation summary
@@ -61,14 +65,14 @@ Target: **BigQuery** `atscale-sales-demo.SUPERSTORE_TABLEAU_DEMO`.
 |---|---|
 | Datasets | 8 (5 dimension, 3 fact) |
 | Dimensions | 8 (5 related + 3 degenerate) |
-| Base metrics | 14 |
+| Base metrics | 15 |
 | Calculated metrics | 11 |
 | Model relationships | 10 |
 
 - **Role-play prefixes:** `Order {0}` and `Ship {0}` on `Date Dimension`. Both `fact_order_line` and `fact_sales_target` use the Order role-play.
 - **Rollup-level joins (the point of the exercise):** `fact_sales_target` attaches to `Product Dimension` at **Category** and `Customer Dimension` at **Segment** — both well above the leaf. `fact_sales_commission` attaches to `Geography Dimension` at **Region**. These are the constructs the Tableau workbook could only express with data blending.
 - **Snowflake bridges:** none. Every dimension is backed by a single table, so Rules 5/9/11 do not engage.
-- **Calculated columns added:** `days_to_ship`, `returned_sales`, `returned_order_id` on `fact_order_line`; `date_name` on `dim_date`.
+- **Calculated columns added:** `days_to_ship`, `returned_sales`, `returned_order_id` on `fact_order_line`; `date_name` on `dim_date`. Materialized on the fact in BigQuery: `customer_name`, `order_date_key`.
 - **Parallel-period columns:** `prior_year_quarter_key`, `prior_year_month_key`, `prior_year_date_key` materialized on `dim_date`, wired to Quarter/Month/Day levels per Rule 13. `prior_year_num` is present for reference.
 - **MDX functions used:** `CASE`, `ISEMPTY`, `Aggregate`, `PeriodsToDate`, `ParallelPeriod`, `CurrentMember` — all present in `references/mdx-reference/INDEX.md`.
 
@@ -76,7 +80,8 @@ Target: **BigQuery** `atscale-sales-demo.SUPERSTORE_TABLEAU_DEMO`.
 
 - `fact_sales_target` is not unique at `(category, order_date, segment)` — three grains repeat on 2024-03-01. They sum, which is faithful to the source.
 - `fact_sales_commission` has no South region, so `Commission Sales` is empty for South. This is a property of the source and is the intended unmatched-join test.
-- `Customer Count` counts customer **ids**; one person ("Harry Olson") holds four, so it slightly exceeds the number of distinct people. The Tableau workbook's own `countD([Customer Name])` keys on name instead. Both are reachable — `Customer` level's `name_column` is `customer_name`.
+- Two customer counts are exposed on purpose: `Customer Count` = 804 distinct **ids**, `Customer Name Count` = 800 distinct **names** (Harry Olson holds four ids). `Sales per Customer` uses the name count to match the workbook. Picking the wrong one shifts the ratio by ~0.5%.
+- A Tableau FIXED LOD must be expressed as a **join**, not a semi-join: AtScale rejects `col IN (SELECT ...)`. It also requires the outer measure to be explicitly wrapped (`SUM(t0."Sales")`) inside a self-join, which is the opposite of the bare-measure convention for plain queries. Tableau's own generated SQL uses the working shape.
 - Phase two (the LOD pack) will need two additional query datasets — order-grain and customer-grain pre-aggregates — for the nested LODs (`AVG` of a per-order `SUM`, customer-cohort `MIN([Order Date])` feeding a bin). They are intentionally not emitted yet.
 
 ## Reproducing this build

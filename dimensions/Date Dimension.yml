@@ -107,11 +107,12 @@ level_attributes:
   time_unit: month
 - unique_name: Day
   label: Day
-  description: Calendar day — the leaf and the join grain for both date role-plays.
+  description: Calendar day — the leaf and the join grain for both date role-plays. Surfaced as a real
+    DATE so Tableau gets native truncation, continuous axes and date-range filters.
   dataset: dim_date
   is_unique_key: true
   key_columns:
   - date_key
-  name_column: date_name
+  name_column: date_key
   sort_column: date_key
   time_unit: day

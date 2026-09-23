@@ -18,6 +18,10 @@ columns:
   data_type: string
 - name: customer_id
   data_type: string
+- name: customer_name
+  data_type: string
+- name: order_date_key
+  data_type: long
 - name: geo_key
   data_type: string
 - name: product_key

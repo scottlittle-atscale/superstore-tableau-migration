@@ -115,7 +115,9 @@ metrics:
   folder: Operations Metrics
 - unique_name: Average Days to Ship
   folder: Operations Metrics
-- unique_name: First Order Date
+- unique_name: First Order Date Key
+  folder: Customer Metrics
+- unique_name: Customer Name Count
   folder: Customer Metrics
 - unique_name: Sales Target
   folder: Target Metrics

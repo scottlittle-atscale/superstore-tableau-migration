@@ -1,9 +1,0 @@
-unique_name: First Order Date
-object_type: metric
-label: First Order Date
-description: Earliest order date for the current selection — the building block for customer-cohort analysis.
-calculation_method: minimum
-format: general number
-dataset: fact_order_line
-column: order_date
-unrelated_dimensions_handling: repeat

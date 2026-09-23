@@ -1,0 +1,10 @@
+unique_name: First Order Date Key
+object_type: metric
+label: First Order Date Key
+description: Earliest order date for the current selection, as a numeric YYYYMMDD key — the building block
+  for customer-cohort analysis. Numeric because Tableau rejects a date-typed measure.
+calculation_method: minimum
+format: general number
+dataset: fact_order_line
+column: order_date_key
+unrelated_dimensions_handling: repeat
