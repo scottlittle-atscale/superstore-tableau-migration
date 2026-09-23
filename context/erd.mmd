@@ -1,0 +1,20 @@
+erDiagram
+    dim_date ||--o{ fact_order_line : "order_date (Order role-play)"
+    dim_date ||--o{ fact_order_line : "ship_date (Ship role-play)"
+    dim_date ||--o{ fact_sales_target : "order_date (Order role-play)"
+    dim_customer ||--o{ fact_order_line : "customer_id (leaf: Customer)"
+    dim_customer ||--o{ fact_sales_target : "segment (rollup: Segment)"
+    dim_product ||--o{ fact_order_line : "product_key (leaf: Product)"
+    dim_product ||--o{ fact_sales_target : "category (rollup: Category)"
+    dim_geography ||--o{ fact_order_line : "geo_key (leaf: Postal Code)"
+    dim_geography ||--o{ fact_sales_commission : "region (rollup: Region)"
+    dim_sales_person ||--o{ fact_sales_commission : "sales_person"
+
+    dim_date { date date_key PK  int64 year_key  string quarter_key  string month_key  date prior_year_date_key }
+    dim_product { string product_key PK  string product_id  string product_name  string sub_category  string category }
+    dim_customer { string customer_id PK  string customer_name  string segment }
+    dim_geography { string geo_key PK  string city_key  string state_key  string region  string regional_manager }
+    dim_sales_person { string sales_person PK  string region }
+    fact_order_line { int64 row_id PK  string order_id  date order_date  date ship_date  string customer_id  string geo_key  string product_key  string is_returned  numeric sales  numeric profit }
+    fact_sales_target { string category  date order_date  string segment  int64 sales_target }
+    fact_sales_commission { string region  string sales_person  int64 commission_sales }

@@ -1,0 +1,6 @@
+unique_name: Average Order Value
+object_type: metric_calc
+label: Average Order Value
+description: 'Mean sales per order — the semantic-layer equivalent of AVG over {INCLUDE [Order ID]: SUM([Sales])}.'
+expression: ([Measures].[Sales] / [Measures].[Order Count])
+format: $#,##0.00

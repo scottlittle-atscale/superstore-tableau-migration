@@ -1,0 +1,9 @@
+unique_name: Profit
+object_type: metric
+label: Profit
+description: Total profit on order lines. Can be negative.
+calculation_method: sum
+format: $#,##0.00
+dataset: fact_order_line
+column: profit
+unrelated_dimensions_handling: repeat

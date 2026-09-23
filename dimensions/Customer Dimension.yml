@@ -1,0 +1,37 @@
+unique_name: Customer Dimension
+object_type: dimension
+label: Customer Dimension
+description: Segment > Customer. Sales targets join at the Segment level.
+type: standard
+hierarchies:
+- unique_name: Customer Hierarchy
+  label: Customer Hierarchy
+  folder: Customer Attributes
+  levels:
+  - unique_name: Segment
+  - unique_name: Customer
+    secondary_attributes:
+    - unique_name: Customer ID
+      label: Customer ID
+      description: Source customer code. One person may hold several (Harry Olson holds four), so a distinct
+        count of ids exceeds the number of people.
+      dataset: dim_customer
+      name_column: customer_id
+      key_columns:
+      - customer_id
+level_attributes:
+- unique_name: Segment
+  label: Segment
+  description: Consumer / Corporate / Home Office. Stable per customer; sales targets attach here.
+  dataset: dim_customer
+  key_columns:
+  - segment
+  name_column: segment
+- unique_name: Customer
+  label: Customer
+  description: Individual customer.
+  dataset: dim_customer
+  is_unique_key: true
+  key_columns:
+  - customer_id
+  name_column: customer_name

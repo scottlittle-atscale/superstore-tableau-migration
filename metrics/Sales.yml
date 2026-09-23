@@ -1,0 +1,9 @@
+unique_name: Sales
+object_type: metric
+label: Sales
+description: Total sales revenue on order lines. Base additive measure.
+calculation_method: sum
+format: $#,##0.00
+dataset: fact_order_line
+column: sales
+unrelated_dimensions_handling: repeat

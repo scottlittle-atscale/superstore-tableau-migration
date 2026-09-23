@@ -1,0 +1,318 @@
+# Column-level data profile — Superstore Tableau migration
+# Source: BigQuery atscale-sales-demo.SUPERSTORE_TABLEAU_DEMO (live COUNT DISTINCT / NULL scan)
+# Used for SML Rule 16 (is_unique_key must match actual uniqueness).
+tables:
+  dim_customer:
+    row_count: 804
+    columns:
+      customer_id:
+        data_type: STRING
+        distinct: 804
+        nulls: 0
+        unique_key: true
+      customer_name:
+        data_type: STRING
+        distinct: 800
+        nulls: 0
+        unique_key: false
+      segment:
+        data_type: STRING
+        distinct: 3
+        nulls: 0
+        unique_key: false
+  dim_date:
+    row_count: 1826
+    columns:
+      date_key:
+        data_type: DATE
+        distinct: 1826
+        nulls: 0
+        unique_key: true
+      year_key:
+        data_type: INT64
+        distinct: 5
+        nulls: 0
+        unique_key: false
+      quarter_key:
+        data_type: STRING
+        distinct: 20
+        nulls: 0
+        unique_key: false
+      month_key:
+        data_type: STRING
+        distinct: 60
+        nulls: 0
+        unique_key: false
+      quarter_num:
+        data_type: INT64
+        distinct: 4
+        nulls: 0
+        unique_key: false
+      month_num:
+        data_type: INT64
+        distinct: 12
+        nulls: 0
+        unique_key: false
+      day_of_month:
+        data_type: INT64
+        distinct: 31
+        nulls: 0
+        unique_key: false
+      month_name:
+        data_type: STRING
+        distinct: 12
+        nulls: 0
+        unique_key: false
+      month_label:
+        data_type: STRING
+        distinct: 60
+        nulls: 0
+        unique_key: false
+      day_name:
+        data_type: STRING
+        distinct: 7
+        nulls: 0
+        unique_key: false
+      day_of_week:
+        data_type: INT64
+        distinct: 7
+        nulls: 0
+        unique_key: false
+      week_of_year:
+        data_type: INT64
+        distinct: 53
+        nulls: 0
+        unique_key: false
+      day_of_year:
+        data_type: INT64
+        distinct: 366
+        nulls: 0
+        unique_key: false
+      is_weekend:
+        data_type: BOOL
+        distinct: 2
+        nulls: 0
+        unique_key: false
+      prior_year_num:
+        data_type: INT64
+        distinct: 5
+        nulls: 0
+        unique_key: false
+      prior_year_quarter_key:
+        data_type: STRING
+        distinct: 20
+        nulls: 0
+        unique_key: false
+      prior_year_month_key:
+        data_type: STRING
+        distinct: 60
+        nulls: 0
+        unique_key: false
+      prior_year_date_key:
+        data_type: DATE
+        distinct: 1825
+        nulls: 0
+        unique_key: false
+  dim_geography:
+    row_count: 655
+    columns:
+      geo_key:
+        data_type: STRING
+        distinct: 655
+        nulls: 0
+        unique_key: true
+      city_key:
+        data_type: STRING
+        distinct: 616
+        nulls: 0
+        unique_key: false
+      state_key:
+        data_type: STRING
+        distinct: 59
+        nulls: 0
+        unique_key: false
+      region:
+        data_type: STRING
+        distinct: 4
+        nulls: 0
+        unique_key: false
+      state_province:
+        data_type: STRING
+        distinct: 59
+        nulls: 0
+        unique_key: false
+      city:
+        data_type: STRING
+        distinct: 542
+        nulls: 0
+        unique_key: false
+      postal_code:
+        data_type: STRING
+        distinct: 654
+        nulls: 0
+        unique_key: false
+      country_region:
+        data_type: STRING
+        distinct: 2
+        nulls: 0
+        unique_key: false
+      regional_manager:
+        data_type: STRING
+        distinct: 4
+        nulls: 0
+        unique_key: false
+  dim_product:
+    row_count: 1894
+    columns:
+      product_key:
+        data_type: STRING
+        distinct: 1894
+        nulls: 0
+        unique_key: true
+      product_id:
+        data_type: STRING
+        distinct: 1862
+        nulls: 0
+        unique_key: false
+      product_name:
+        data_type: STRING
+        distinct: 1849
+        nulls: 0
+        unique_key: false
+      sub_category:
+        data_type: STRING
+        distinct: 17
+        nulls: 0
+        unique_key: false
+      category:
+        data_type: STRING
+        distinct: 3
+        nulls: 0
+        unique_key: false
+  dim_sales_person:
+    row_count: 41
+    columns:
+      sales_person:
+        data_type: STRING
+        distinct: 41
+        nulls: 0
+        unique_key: true
+      region:
+        data_type: STRING
+        distinct: 3
+        nulls: 0
+        unique_key: false
+  fact_order_line:
+    row_count: 10194
+    columns:
+      row_id:
+        data_type: INT64
+        distinct: 10194
+        nulls: 0
+        unique_key: true
+      order_id:
+        data_type: STRING
+        distinct: 5111
+        nulls: 0
+        unique_key: false
+      order_date:
+        data_type: DATE
+        distinct: 1242
+        nulls: 0
+        unique_key: false
+      ship_date:
+        data_type: DATE
+        distinct: 1338
+        nulls: 0
+        unique_key: false
+      ship_mode:
+        data_type: STRING
+        distinct: 4
+        nulls: 0
+        unique_key: false
+      customer_id:
+        data_type: STRING
+        distinct: 804
+        nulls: 0
+        unique_key: false
+      geo_key:
+        data_type: STRING
+        distinct: 655
+        nulls: 0
+        unique_key: false
+      product_key:
+        data_type: STRING
+        distinct: 1894
+        nulls: 0
+        unique_key: false
+      is_returned:
+        data_type: STRING
+        distinct: 2
+        nulls: 0
+        unique_key: false
+      sales:
+        data_type: NUMERIC
+        distinct: 5837
+        nulls: 0
+        unique_key: false
+      quantity:
+        data_type: INT64
+        distinct: 14
+        nulls: 0
+        unique_key: false
+      discount:
+        data_type: NUMERIC
+        distinct: 12
+        nulls: 0
+        unique_key: false
+      profit:
+        data_type: NUMERIC
+        distinct: 7334
+        nulls: 0
+        unique_key: false
+      category_cluster:
+        data_type: STRING
+        distinct: 3
+        nulls: 0
+        unique_key: false
+  fact_sales_commission:
+    row_count: 41
+    columns:
+      region:
+        data_type: STRING
+        distinct: 3
+        nulls: 0
+        unique_key: false
+      sales_person:
+        data_type: STRING
+        distinct: 41
+        nulls: 0
+        unique_key: true
+      commission_sales:
+        data_type: INT64
+        distinct: 41
+        nulls: 0
+        unique_key: true
+  fact_sales_target:
+    row_count: 4603
+    columns:
+      category:
+        data_type: STRING
+        distinct: 3
+        nulls: 0
+        unique_key: false
+      order_date:
+        data_type: DATE
+        distinct: 1236
+        nulls: 0
+        unique_key: false
+      segment:
+        data_type: STRING
+        distinct: 3
+        nulls: 0
+        unique_key: false
+      sales_target:
+        data_type: INT64
+        distinct: 1342
+        nulls: 0
+        unique_key: false

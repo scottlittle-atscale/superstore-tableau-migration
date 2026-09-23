@@ -1,0 +1,19 @@
+unique_name: Ship Mode Dimension
+object_type: dimension
+label: Ship Mode Dimension
+description: 'How the order shipped: First Class, Same Day, Second Class, Standard Class.'
+is_degenerate: true
+hierarchies:
+- unique_name: Ship Mode Hierarchy
+  label: Ship Mode Hierarchy
+  folder: Order Attributes
+  levels:
+  - unique_name: Ship Mode
+level_attributes:
+- unique_name: Ship Mode
+  label: Ship Mode
+  description: 'How the order shipped: First Class, Same Day, Second Class, Standard Class.'
+  dataset: fact_order_line
+  key_columns:
+  - ship_mode
+  name_column: ship_mode

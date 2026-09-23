@@ -1,0 +1,21 @@
+unique_name: Order Dimension
+object_type: dimension
+label: Order Dimension
+description: 'Order number, resident on the fact. This is the grain every {FIXED [Order ID]: ...} LOD
+  in the Tableau workbooks aggregates to, so it is exposed as a browsable level.'
+is_degenerate: true
+hierarchies:
+- unique_name: Order Hierarchy
+  label: Order Hierarchy
+  folder: Order Attributes
+  levels:
+  - unique_name: Order ID
+level_attributes:
+- unique_name: Order ID
+  label: Order
+  description: 'Order number, resident on the fact. This is the grain every {FIXED [Order ID]: ...} LOD
+    in the Tableau workbooks aggregates to, so it is exposed as a browsable level.'
+  dataset: fact_order_line
+  key_columns:
+  - order_id
+  name_column: order_id

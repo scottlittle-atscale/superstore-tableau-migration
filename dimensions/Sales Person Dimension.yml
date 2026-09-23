@@ -1,0 +1,20 @@
+unique_name: Sales Person Dimension
+object_type: dimension
+label: Sales Person Dimension
+description: Salesperson roster, private to the commission fact. No other fact references it.
+type: standard
+hierarchies:
+- unique_name: Sales Person Hierarchy
+  label: Sales Person Hierarchy
+  folder: Sales Person Attributes
+  levels:
+  - unique_name: Sales Person
+level_attributes:
+- unique_name: Sales Person
+  label: Sales Person
+  description: Named salesperson; 41 people, each in exactly one region.
+  dataset: dim_sales_person
+  is_unique_key: true
+  key_columns:
+  - sales_person
+  name_column: sales_person

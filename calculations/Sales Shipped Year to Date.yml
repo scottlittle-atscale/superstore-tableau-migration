@@ -1,0 +1,10 @@
+unique_name: Sales Shipped Year to Date
+object_type: metric_calc
+label: Sales Shipped Year to Date
+description: Sales accumulated from the start of the ship year — the 'Shipped' verb selects the Ship Date
+  role-play (Rule 4).
+expression: 'CASE WHEN ISEMPTY([Measures].[Sales]) THEN NULL
+
+  ELSE Aggregate(PeriodsToDate([Ship Date Dimension].[Ship Date Hierarchy].[Ship Year], [Ship Date Dimension].[Ship
+  Date Hierarchy].CurrentMember), [Measures].[Sales]) END'
+format: $#,##0.00

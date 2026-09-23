@@ -1,0 +1,47 @@
+unique_name: dim_date
+object_type: dataset
+label: dim_date
+description: Calendar date dimension 2023-01-01..2027-12-31 with Year/Quarter/Month/Day keys and prior-year
+  parallel-period keys for each level.
+connection_id: Connection - Superstore
+table: dim_date
+columns:
+- name: date_key
+  data_type: date
+- name: year_key
+  data_type: long
+- name: quarter_key
+  data_type: string
+- name: month_key
+  data_type: string
+- name: quarter_num
+  data_type: long
+- name: month_num
+  data_type: long
+- name: day_of_month
+  data_type: long
+- name: month_name
+  data_type: string
+- name: month_label
+  data_type: string
+- name: day_name
+  data_type: string
+- name: day_of_week
+  data_type: long
+- name: week_of_year
+  data_type: long
+- name: day_of_year
+  data_type: long
+- name: is_weekend
+  data_type: boolean
+- name: prior_year_num
+  data_type: long
+- name: prior_year_quarter_key
+  data_type: string
+- name: prior_year_month_key
+  data_type: string
+- name: prior_year_date_key
+  data_type: date
+- name: date_name
+  data_type: string
+  sql: CAST(date_key AS STRING)

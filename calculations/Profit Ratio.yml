@@ -1,0 +1,6 @@
+unique_name: Profit Ratio
+object_type: metric_calc
+label: Profit Ratio
+description: Profit as a share of sales.
+expression: ([Measures].[Profit] / [Measures].[Sales])
+format: percent

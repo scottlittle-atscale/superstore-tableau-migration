@@ -1,0 +1,9 @@
+unique_name: Returned Sales
+object_type: metric
+label: Returned Sales
+description: Sales on orders that were returned.
+calculation_method: sum
+format: $#,##0.00
+dataset: fact_order_line
+column: returned_sales
+unrelated_dimensions_handling: repeat

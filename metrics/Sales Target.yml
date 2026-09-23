@@ -1,0 +1,9 @@
+unique_name: Sales Target
+object_type: metric
+label: Sales Target
+description: Planned sales at (category, day, segment) grain.
+calculation_method: sum
+format: $#,##0.00
+dataset: fact_sales_target
+column: sales_target
+unrelated_dimensions_handling: repeat

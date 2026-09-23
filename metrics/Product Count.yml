@@ -1,0 +1,9 @@
+unique_name: Product Count
+object_type: metric
+label: Product Count
+description: Distinct products sold, on the composite product key.
+calculation_method: count distinct
+format: general number
+dataset: fact_order_line
+column: product_key
+unrelated_dimensions_handling: repeat

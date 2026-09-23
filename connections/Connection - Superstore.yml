@@ -1,0 +1,6 @@
+unique_name: Connection - Superstore
+label: Connection - Superstore
+object_type: connection
+as_connection: BigQuery
+database: atscale-sales-demo
+schema: SUPERSTORE_TABLEAU_DEMO

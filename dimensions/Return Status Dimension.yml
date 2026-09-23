@@ -1,0 +1,21 @@
+unique_name: Return Status Dimension
+object_type: dimension
+label: Return Status Dimension
+description: Yes / No. Folded onto the fact from the Returns source, so non-returned orders read 'No'
+  rather than NULL.
+is_degenerate: true
+hierarchies:
+- unique_name: Return Status Hierarchy
+  label: Return Status Hierarchy
+  folder: Order Attributes
+  levels:
+  - unique_name: Return Status
+level_attributes:
+- unique_name: Return Status
+  label: Return Status
+  description: Yes / No. Folded onto the fact from the Returns source, so non-returned orders read 'No'
+    rather than NULL.
+  dataset: fact_order_line
+  key_columns:
+  - is_returned
+  name_column: is_returned

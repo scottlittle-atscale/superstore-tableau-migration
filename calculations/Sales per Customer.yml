@@ -1,0 +1,6 @@
+unique_name: Sales per Customer
+object_type: metric_calc
+label: Sales per Customer
+description: Sales divided by distinct customers.
+expression: ([Measures].[Sales] / [Measures].[Customer Count])
+format: $#,##0.00

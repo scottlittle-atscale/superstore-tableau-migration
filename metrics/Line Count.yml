@@ -1,0 +1,9 @@
+unique_name: Line Count
+object_type: metric
+label: Line Count
+description: Order-line row count.
+calculation_method: count non-null
+format: general number
+dataset: fact_order_line
+column: row_id
+unrelated_dimensions_handling: repeat

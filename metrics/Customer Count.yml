@@ -1,0 +1,10 @@
+unique_name: Customer Count
+object_type: metric
+label: Customer Count
+description: Distinct customer ids. Note one person can hold several ids, so this slightly exceeds the
+  number of people.
+calculation_method: count distinct
+format: general number
+dataset: fact_order_line
+column: customer_id
+unrelated_dimensions_handling: repeat

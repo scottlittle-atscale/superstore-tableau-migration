@@ -1,0 +1,14 @@
+unique_name: fact_sales_commission
+object_type: dataset
+label: fact_sales_commission
+description: Booked sales per salesperson per region. Covers Central/East/West only — the South region
+  has no salespeople.
+connection_id: Connection - Superstore
+table: fact_sales_commission
+columns:
+- name: region
+  data_type: string
+- name: sales_person
+  data_type: string
+- name: commission_sales
+  data_type: long

@@ -1,0 +1,62 @@
+unique_name: Geography Dimension
+object_type: dimension
+label: Geography Dimension
+description: 'Ship-to geography: Region > State > City > Postal Code. Region is the top level and is country-agnostic,
+  because the commission source keys on region name alone; country is an attribute of State.'
+type: standard
+hierarchies:
+- unique_name: Geography Hierarchy
+  label: Geography Hierarchy
+  folder: Geography Attributes
+  levels:
+  - unique_name: Region
+    secondary_attributes:
+    - unique_name: Regional Manager
+      label: Regional Manager
+      description: Manager who owns the region, denormalized from the People source.
+      dataset: dim_geography
+      name_column: regional_manager
+      key_columns:
+      - region
+  - unique_name: State
+    secondary_attributes:
+    - unique_name: Country
+      label: Country/Region
+      description: United States or Canada. Hangs off State, not above Region — Central/East/West each
+        span both countries.
+      dataset: dim_geography
+      name_column: country_region
+      key_columns:
+      - state_key
+  - unique_name: City
+  - unique_name: Postal Code
+level_attributes:
+- unique_name: Region
+  label: Region
+  description: Central / East / South / West. Commission joins here.
+  dataset: dim_geography
+  key_columns:
+  - region
+  name_column: region
+- unique_name: State
+  label: State/Province
+  description: State or province; 59 values, each in exactly one region.
+  dataset: dim_geography
+  key_columns:
+  - state_key
+  name_column: state_province
+- unique_name: City
+  label: City
+  description: City, keyed with its state because 58 city names span multiple states.
+  dataset: dim_geography
+  key_columns:
+  - city_key
+  name_column: city
+- unique_name: Postal Code
+  label: Postal Code
+  description: US ZIP or Canadian FSA. Stored as text — 449 codes carry a leading zero and 200 are alphanumeric.
+  dataset: dim_geography
+  is_unique_key: true
+  key_columns:
+  - geo_key
+  name_column: postal_code

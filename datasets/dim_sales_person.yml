@@ -1,0 +1,11 @@
+unique_name: dim_sales_person
+object_type: dataset
+label: dim_sales_person
+description: Salesperson roster, private to the commission process. 41 people across 3 regions.
+connection_id: Connection - Superstore
+table: dim_sales_person
+columns:
+- name: sales_person
+  data_type: string
+- name: region
+  data_type: string

@@ -1,0 +1,9 @@
+unique_name: Average Days to Ship
+object_type: metric
+label: Average Days to Ship
+description: Mean days between order date and ship date.
+calculation_method: average
+format: general number
+dataset: fact_order_line
+column: days_to_ship
+unrelated_dimensions_handling: repeat

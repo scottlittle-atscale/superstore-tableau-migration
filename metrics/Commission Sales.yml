@@ -1,0 +1,9 @@
+unique_name: Commission Sales
+object_type: metric
+label: Commission Sales
+description: Booked sales credited to a salesperson.
+calculation_method: sum
+format: $#,##0.00
+dataset: fact_sales_commission
+column: commission_sales
+unrelated_dimensions_handling: repeat

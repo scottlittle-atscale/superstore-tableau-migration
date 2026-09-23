@@ -1,0 +1,9 @@
+unique_name: Order Count
+object_type: metric
+label: Order Count
+description: Distinct orders. 5,111 in the source.
+calculation_method: count distinct
+format: general number
+dataset: fact_order_line
+column: order_id
+unrelated_dimensions_handling: repeat

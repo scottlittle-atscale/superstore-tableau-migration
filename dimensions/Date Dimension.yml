@@ -1,0 +1,117 @@
+unique_name: Date Dimension
+object_type: dimension
+label: Date Dimension
+description: Calendar date dimension. Role-played as Order Date and Ship Date.
+type: time
+hierarchies:
+- unique_name: Date Hierarchy
+  label: Date Hierarchy
+  description: 'Calendar rollup: Year > Quarter > Month > Day.'
+  folder: Date Attributes
+  levels:
+  - unique_name: Year
+  - unique_name: Quarter
+    parallel_periods:
+    - key_columns:
+      - prior_year_quarter_key
+      level: Year
+    secondary_attributes:
+    - unique_name: Quarter Of Year
+      label: Quarter Of Year
+      description: Quarter number within the year (1-4).
+      dataset: dim_date
+      name_column: quarter_num
+      key_columns:
+      - quarter_key
+  - unique_name: Month
+    parallel_periods:
+    - key_columns:
+      - prior_year_month_key
+      level: Year
+    secondary_attributes:
+    - unique_name: Month Of Year
+      label: Month Of Year
+      description: Month number within the year (1-12).
+      dataset: dim_date
+      name_column: month_num
+      key_columns:
+      - month_key
+    - unique_name: Month Name
+      label: Month Name
+      description: Full month name, e.g. January.
+      dataset: dim_date
+      name_column: month_name
+      key_columns:
+      - month_key
+  - unique_name: Day
+    parallel_periods:
+    - key_columns:
+      - prior_year_date_key
+      level: Year
+    secondary_attributes:
+    - unique_name: Day Of Month
+      label: Day Of Month
+      description: Day number within the month (1-31).
+      dataset: dim_date
+      name_column: day_of_month
+      key_columns:
+      - date_key
+    - unique_name: Day Name
+      label: Day Name
+      description: Weekday name, e.g. Monday.
+      dataset: dim_date
+      name_column: day_name
+      key_columns:
+      - date_key
+    - unique_name: Week Of Year
+      label: Week Of Year
+      description: ISO week number within the year.
+      dataset: dim_date
+      name_column: week_of_year
+      key_columns:
+      - date_key
+    - unique_name: Is Weekend
+      label: Is Weekend
+      description: True when the date falls on Saturday or Sunday.
+      dataset: dim_date
+      name_column: is_weekend
+      key_columns:
+      - date_key
+level_attributes:
+- unique_name: Year
+  label: Year
+  description: Calendar year.
+  dataset: dim_date
+  key_columns:
+  - year_key
+  name_column: year_key
+  sort_column: year_key
+  time_unit: year
+- unique_name: Quarter
+  label: Quarter
+  description: Calendar quarter, e.g. 2025-Q3.
+  dataset: dim_date
+  key_columns:
+  - quarter_key
+  name_column: quarter_key
+  sort_column: quarter_key
+  time_unit: quarter
+- unique_name: Month
+  label: Month
+  description: Calendar month, e.g. Mar 2025.
+  dataset: dim_date
+  key_columns:
+  - month_key
+  name_column: month_label
+  sort_column: month_key
+  time_unit: month
+- unique_name: Day
+  label: Day
+  description: Calendar day — the leaf and the join grain for both date role-plays.
+  dataset: dim_date
+  is_unique_key: true
+  key_columns:
+  - date_key
+  name_column: date_name
+  sort_column: date_key
+  time_unit: day

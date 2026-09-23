@@ -1,0 +1,9 @@
+unique_name: Returned Order Count
+object_type: metric
+label: Returned Order Count
+description: Distinct returned orders. 296 in the source.
+calculation_method: count distinct
+format: general number
+dataset: fact_order_line
+column: returned_order_id
+unrelated_dimensions_handling: repeat

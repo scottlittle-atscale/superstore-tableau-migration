@@ -1,0 +1,9 @@
+unique_name: Sales YoY Growth Percent
+object_type: metric_calc
+label: Sales YoY Growth Percent
+description: Year-over-year sales growth on the order-date axis.
+expression: 'CASE WHEN ISEMPTY([Measures].[Sales Prior Year]) THEN NULL
+
+  ELSE (([Order Date Dimension].[Order Date Hierarchy].CurrentMember, [Measures].[Sales]) - [Measures].[Sales
+  Prior Year]) / [Measures].[Sales Prior Year] END'
+format: percent

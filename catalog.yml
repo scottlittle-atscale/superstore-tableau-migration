@@ -1,0 +1,8 @@
+unique_name: superstore_sales_analytics_catalog
+object_type: catalog
+label: Superstore Sales Analytics
+description: Catalog for the Superstore Sales Analytics model — a Tableau-to-AtScale migration test bed
+  built on the shipped Superstore sample workbook, extended to carry the public LOD-expression workbooks.
+version: 1.7
+aggressive_agg_promotion: false
+build_speculative_aggs: false

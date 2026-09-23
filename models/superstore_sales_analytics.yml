@@ -1,0 +1,145 @@
+unique_name: superstore_sales_analytics
+object_type: model
+label: Superstore Sales Analytics
+description: Superstore order lines, sales targets and salesperson commission on one model. Built to re-host
+  Tableau's shipped Superstore workbook and the public LOD-expression workbooks against a semantic layer.
+visible: true
+relationships:
+- unique_name: fact_order_line_Date_Dimension_Order
+  from:
+    dataset: fact_order_line
+    join_columns:
+    - order_date
+  to:
+    dimension: Date Dimension
+    level: Day
+  role_play: Order {0}
+- unique_name: fact_order_line_Date_Dimension_Ship
+  from:
+    dataset: fact_order_line
+    join_columns:
+    - ship_date
+  to:
+    dimension: Date Dimension
+    level: Day
+  role_play: Ship {0}
+- unique_name: fact_order_line_Customer_Dimension
+  from:
+    dataset: fact_order_line
+    join_columns:
+    - customer_id
+  to:
+    dimension: Customer Dimension
+    level: Customer
+- unique_name: fact_order_line_Product_Dimension
+  from:
+    dataset: fact_order_line
+    join_columns:
+    - product_key
+  to:
+    dimension: Product Dimension
+    level: Product
+- unique_name: fact_order_line_Geography_Dimension
+  from:
+    dataset: fact_order_line
+    join_columns:
+    - geo_key
+  to:
+    dimension: Geography Dimension
+    level: Postal Code
+- unique_name: fact_sales_target_Date_Dimension_Order
+  from:
+    dataset: fact_sales_target
+    join_columns:
+    - order_date
+  to:
+    dimension: Date Dimension
+    level: Day
+  role_play: Order {0}
+- unique_name: fact_sales_target_Product_Dimension
+  from:
+    dataset: fact_sales_target
+    join_columns:
+    - category
+  to:
+    dimension: Product Dimension
+    level: Category
+- unique_name: fact_sales_target_Customer_Dimension
+  from:
+    dataset: fact_sales_target
+    join_columns:
+    - segment
+  to:
+    dimension: Customer Dimension
+    level: Segment
+- unique_name: fact_sales_commission_Geography_Dimension
+  from:
+    dataset: fact_sales_commission
+    join_columns:
+    - region
+  to:
+    dimension: Geography Dimension
+    level: Region
+- unique_name: fact_sales_commission_Sales_Person_Dimension
+  from:
+    dataset: fact_sales_commission
+    join_columns:
+    - sales_person
+  to:
+    dimension: Sales Person Dimension
+    level: Sales Person
+dimensions:
+- Order Dimension
+- Ship Mode Dimension
+- Return Status Dimension
+metrics:
+- unique_name: Sales
+  folder: Sales Metrics
+- unique_name: Profit
+  folder: Sales Metrics
+- unique_name: Quantity
+  folder: Sales Metrics
+- unique_name: Discount
+  folder: Sales Metrics
+- unique_name: Order Count
+  folder: Customer Metrics
+- unique_name: Customer Count
+  folder: Customer Metrics
+- unique_name: Product Count
+  folder: Sales Metrics
+- unique_name: Line Count
+  folder: Sales Metrics
+- unique_name: Returned Sales
+  folder: Operations Metrics
+- unique_name: Returned Order Count
+  folder: Operations Metrics
+- unique_name: Average Days to Ship
+  folder: Operations Metrics
+- unique_name: First Order Date
+  folder: Customer Metrics
+- unique_name: Sales Target
+  folder: Target Metrics
+- unique_name: Commission Sales
+  folder: Commission Metrics
+- unique_name: Profit Ratio
+  folder: Ratio Metrics
+- unique_name: Sales per Customer
+  folder: Ratio Metrics
+- unique_name: Profit per Order
+  folder: Ratio Metrics
+- unique_name: Average Order Value
+  folder: Ratio Metrics
+- unique_name: Return Rate
+  folder: Ratio Metrics
+- unique_name: Sales vs Target
+  folder: Ratio Metrics
+- unique_name: Target Attainment
+  folder: Ratio Metrics
+- unique_name: Sales Year to Date
+  folder: Time Intelligence
+- unique_name: Sales Prior Year
+  folder: Time Intelligence
+- unique_name: Sales YoY Growth Percent
+  folder: Ratio Metrics
+- unique_name: Sales Shipped Year to Date
+  folder: Time Intelligence

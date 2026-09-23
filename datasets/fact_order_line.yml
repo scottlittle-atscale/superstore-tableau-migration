@@ -1,0 +1,45 @@
+unique_name: fact_order_line
+object_type: dataset
+label: fact_order_line
+description: 'Order-line grain fact (10,194 rows): sales, profit, quantity, discount, plus the returned
+  flag folded in from the Returns source.'
+connection_id: Connection - Superstore
+table: fact_order_line
+columns:
+- name: row_id
+  data_type: long
+- name: order_id
+  data_type: string
+- name: order_date
+  data_type: date
+- name: ship_date
+  data_type: date
+- name: ship_mode
+  data_type: string
+- name: customer_id
+  data_type: string
+- name: geo_key
+  data_type: string
+- name: product_key
+  data_type: string
+- name: is_returned
+  data_type: string
+- name: sales
+  data_type: decimal(38,9)
+- name: quantity
+  data_type: long
+- name: discount
+  data_type: decimal(38,9)
+- name: profit
+  data_type: decimal(38,9)
+- name: category_cluster
+  data_type: string
+- name: days_to_ship
+  data_type: long
+  sql: DATE_DIFF(ship_date, order_date, DAY)
+- name: returned_sales
+  data_type: decimal(38,9)
+  sql: CASE WHEN is_returned = 'Yes' THEN sales END
+- name: returned_order_id
+  data_type: string
+  sql: CASE WHEN is_returned = 'Yes' THEN order_id END

@@ -1,0 +1,6 @@
+unique_name: Profit per Order
+object_type: metric_calc
+label: Profit per Order
+description: Profit divided by distinct orders.
+expression: ([Measures].[Profit] / [Measures].[Order Count])
+format: $#,##0.00

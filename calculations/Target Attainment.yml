@@ -1,0 +1,6 @@
+unique_name: Target Attainment
+object_type: metric_calc
+label: Target Attainment
+description: Actual sales as a share of planned sales.
+expression: ([Measures].[Sales] / [Measures].[Sales Target])
+format: percent

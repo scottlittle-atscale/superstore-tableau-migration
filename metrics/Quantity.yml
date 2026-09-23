@@ -1,0 +1,9 @@
+unique_name: Quantity
+object_type: metric
+label: Quantity
+description: Units ordered.
+calculation_method: sum
+format: general number
+dataset: fact_order_line
+column: quantity
+unrelated_dimensions_handling: repeat

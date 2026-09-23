@@ -1,0 +1,9 @@
+unique_name: Sales Prior Year
+object_type: metric_calc
+label: Sales Prior Year
+description: Sales for the equivalent period one year earlier, on the order-date axis.
+expression: 'CASE WHEN ISEMPTY([Measures].[Sales]) THEN NULL
+
+  ELSE (ParallelPeriod([Order Date Dimension].[Order Date Hierarchy].[Order Year], 1, [Order Date Dimension].[Order
+  Date Hierarchy].CurrentMember), [Measures].[Sales]) END'
+format: $#,##0.00

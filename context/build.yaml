@@ -1,0 +1,18 @@
+# Effective build config for this run (assembled from the caller prompt).
+inputs:
+  use_case: ./use_case.md
+  nlqs: ./nlqs.md
+  ddl: ./ddl.sql
+  erd: ./erd.mmd
+  data_source:
+    data_profile_yaml: ./data_profile.yaml
+output_dir: ~/atscale/superstore_tableau_migration
+unrelated_dimension_handling: repeat
+warehouse: BigQuery
+database: atscale-sales-demo
+schema: SUPERSTORE_TABLEAU_DEMO
+model_unique_name: superstore_sales_analytics
+catalog_unique_name: superstore_sales_analytics_catalog
+currency: USD
+time_window: calendar
+semi_additive_default: none

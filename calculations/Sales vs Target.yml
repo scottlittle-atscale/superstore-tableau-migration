@@ -1,0 +1,7 @@
+unique_name: Sales vs Target
+object_type: metric_calc
+label: Sales vs Target
+description: Actual sales minus planned sales. Crosses two facts at different grain — the construct Tableau
+  could only express by blending.
+expression: ([Measures].[Sales] - [Measures].[Sales Target])
+format: $#,##0.00

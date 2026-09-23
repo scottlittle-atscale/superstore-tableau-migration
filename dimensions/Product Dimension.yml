@@ -1,0 +1,45 @@
+unique_name: Product Dimension
+object_type: dimension
+label: Product Dimension
+description: Category > Sub-Category > Product. Sales targets join at the Category level.
+type: standard
+hierarchies:
+- unique_name: Product Hierarchy
+  label: Product Hierarchy
+  folder: Product Attributes
+  levels:
+  - unique_name: Category
+  - unique_name: Sub Category
+  - unique_name: Product
+    secondary_attributes:
+    - unique_name: Product ID
+      label: Product ID
+      description: Source product code. NOT unique — 32 codes are reused across different products, which
+        is why the level key is composite.
+      dataset: dim_product
+      name_column: product_id
+      key_columns:
+      - product_key
+level_attributes:
+- unique_name: Category
+  label: Category
+  description: Top product grouping. Sales targets attach here.
+  dataset: dim_product
+  key_columns:
+  - category
+  name_column: category
+- unique_name: Sub Category
+  label: Sub-Category
+  description: Product sub-grouping; 17 values, unique across categories.
+  dataset: dim_product
+  key_columns:
+  - sub_category
+  name_column: sub_category
+- unique_name: Product
+  label: Product
+  description: Individual product. Keyed on product_id|product_name because product_id alone is not unique.
+  dataset: dim_product
+  is_unique_key: true
+  key_columns:
+  - product_key
+  name_column: product_name

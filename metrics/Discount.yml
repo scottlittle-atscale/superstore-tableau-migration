@@ -1,0 +1,9 @@
+unique_name: Discount
+object_type: metric
+label: Discount
+description: Mean discount rate on order lines. Averaged, never summed.
+calculation_method: average
+format: percent
+dataset: fact_order_line
+column: discount
+unrelated_dimensions_handling: repeat
