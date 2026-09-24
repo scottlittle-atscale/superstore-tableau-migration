@@ -57,17 +57,21 @@ Target: **BigQuery** `atscale-sales-demo.SUPERSTORE_TABLEAU_DEMO`.
 - **`First Order Date Key` is a numeric `YYYYMMDD` measure, not a date.** A `minimum`-over-a-DATE metric loads in AtScale but breaks Tableau at data-source load with *"Ignoring properties for '[X]', can't interpret field as measure"* — Tableau measures must be numeric.
 - **`Sales per Customer` divides by `Customer Name Count` (800), not `Customer Count` (804).** The Tableau workbook uses `countD([Customer Name])`; `customer_name` is denormalized onto the fact so the distinct count stays fact-sourced. Both counts remain exposed.
 - **`Order Profitable?` is deliberately NOT materialized.** Tested live: Tableau's `{FIXED [Order ID]: SUM([Profit])}` pushes down to AtScale as a derived-table self-join and returns exactly correct numbers, so no model-side flag is needed.
+- **Two grain-shifted pre-aggregates added** (`fact_order_agg`, 5,111 rows; `fact_customer_agg`, 804 rows) so aggregate-of-aggregate questions resolve in the model rather than as client-side nested LODs. Both reconcile to 2,326,534.3543 / 292,296.8146.
+- **`fact_order_agg` is deliberately NOT related to Customer Dimension** — two orders (`CA-2025-121465`, `CA-2026-130494`) carry four `customer_id` values each, so order-to-customer is not 1:1. It relates to Order and Order Date only.
+- **`Order Dimension` converted from degenerate to standard**, backed by a new `dim_order` table, so both `fact_order_line` and `fact_order_agg` can join to it. It therefore leaves the model `dimensions:` block (Rule 12).
+- **Customer cohort/behaviour attributes modelled on `dim_customer`** (`First Order Year`, `Categories Purchased`, `Lifetime Sales Band`) rather than left as client-side FIXED LODs. `Categories Purchased` returns 29/158/617, matching a direct warehouse count.
 - **Ship-axis MDX limited to `Sales Shipped Year to Date`** — Rule 4 ties the time axis to the verb in the metric name, and only that metric carries a "shipped" verb. All other time-intelligence uses the Order Date role-play.
 
 ## Generation summary
 
 | Object | Count |
 |---|---|
-| Datasets | 8 (5 dimension, 3 fact) |
+| Datasets | 11 (6 dimension, 5 fact) |
 | Dimensions | 8 (5 related + 3 degenerate) |
-| Base metrics | 15 |
+| Base metrics | 21 |
 | Calculated metrics | 11 |
-| Model relationships | 10 |
+| Model relationships | 14 |
 
 - **Role-play prefixes:** `Order {0}` and `Ship {0}` on `Date Dimension`. Both `fact_order_line` and `fact_sales_target` use the Order role-play.
 - **Rollup-level joins (the point of the exercise):** `fact_sales_target` attaches to `Product Dimension` at **Category** and `Customer Dimension` at **Segment** — both well above the leaf. `fact_sales_commission` attaches to `Geography Dimension` at **Region**. These are the constructs the Tableau workbook could only express with data blending.

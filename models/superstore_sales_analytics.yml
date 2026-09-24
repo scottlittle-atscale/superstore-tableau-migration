@@ -72,6 +72,39 @@ relationships:
   to:
     dimension: Customer Dimension
     level: Segment
+- unique_name: fact_order_line_Order_Dimension
+  from:
+    dataset: fact_order_line
+    join_columns:
+    - order_id
+  to:
+    dimension: Order Dimension
+    level: Order ID
+- unique_name: fact_order_agg_Order_Dimension
+  from:
+    dataset: fact_order_agg
+    join_columns:
+    - order_id
+  to:
+    dimension: Order Dimension
+    level: Order ID
+- unique_name: fact_order_agg_Date_Dimension_Order
+  from:
+    dataset: fact_order_agg
+    join_columns:
+    - order_date
+  to:
+    dimension: Date Dimension
+    level: Day
+  role_play: Order {0}
+- unique_name: fact_customer_agg_Customer_Dimension
+  from:
+    dataset: fact_customer_agg
+    join_columns:
+    - customer_id
+  to:
+    dimension: Customer Dimension
+    level: Customer
 - unique_name: fact_sales_commission_Geography_Dimension
   from:
     dataset: fact_sales_commission
@@ -89,7 +122,6 @@ relationships:
     dimension: Sales Person Dimension
     level: Sales Person
 dimensions:
-- Order Dimension
 - Ship Mode Dimension
 - Return Status Dimension
 metrics:
@@ -118,6 +150,18 @@ metrics:
 - unique_name: First Order Date Key
   folder: Customer Metrics
 - unique_name: Customer Name Count
+  folder: Customer Metrics
+- unique_name: Largest Order Value
+  folder: Order Metrics
+- unique_name: Average Lines per Order
+  folder: Order Metrics
+- unique_name: Average Customer Lifetime Sales
+  folder: Customer Metrics
+- unique_name: Largest Customer Lifetime Sales
+  folder: Customer Metrics
+- unique_name: Average Orders per Customer
+  folder: Customer Metrics
+- unique_name: Last Order Sales
   folder: Customer Metrics
 - unique_name: Sales Target
   folder: Target Metrics

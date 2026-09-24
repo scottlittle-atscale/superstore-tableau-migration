@@ -13,10 +13,34 @@ hierarchies:
     secondary_attributes:
     - unique_name: Customer ID
       label: Customer ID
-      description: Source customer code. One person may hold several (Harry Olson holds four), so a distinct
-        count of ids exceeds the number of people.
+      description: Source customer code. One person may hold several (Harry Olson holds five), so a distinct
+        count of ids exceeds the number of people. Key LODs on THIS, not on Customer — the display name
+        is not unique and joining on it fans the fact out.
       dataset: dim_customer
       name_column: customer_id
+      key_columns:
+      - customer_id
+    - unique_name: First Order Year
+      label: First Order Year
+      description: 'Year of the customer''s first order — the cohort. Modelled so cohort analysis needs
+        no {FIXED [Customer]: MIN([Order Date])}.'
+      dataset: dim_customer
+      name_column: first_order_year
+      key_columns:
+      - customer_id
+    - unique_name: Categories Purchased
+      label: Categories Purchased
+      description: 'How many distinct product categories the customer has bought (1-3). Replaces {FIXED
+        [Customer]: COUNTD([Category])}.'
+      dataset: dim_customer
+      name_column: distinct_category_count
+      key_columns:
+      - customer_id
+    - unique_name: Lifetime Sales Band
+      label: Lifetime Sales Band
+      description: Customer lifetime sales bucketed into four ranges.
+      dataset: dim_customer
+      name_column: lifetime_sales_band
       key_columns:
       - customer_id
 level_attributes:

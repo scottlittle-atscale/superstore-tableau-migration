@@ -1,0 +1,9 @@
+unique_name: Average Customer Lifetime Sales
+object_type: metric
+label: Average Customer Lifetime Sales
+description: Mean lifetime sales per customer.
+calculation_method: average
+format: $#,##0.00
+dataset: fact_customer_agg
+column: lifetime_sales
+unrelated_dimensions_handling: repeat

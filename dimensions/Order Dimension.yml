@@ -1,21 +1,44 @@
 unique_name: Order Dimension
 object_type: dimension
 label: Order Dimension
-description: 'Order number, resident on the fact. This is the grain every {FIXED [Order ID]: ...} LOD
-  in the Tableau workbooks aggregates to, so it is exposed as a browsable level.'
-is_degenerate: true
+description: 'Order number plus order-grain attributes. Backed by its own table so both fact_order_line
+  and fact_order_agg can join here — the grain every {FIXED [Order ID]: ...} LOD aggregates to.'
+type: standard
 hierarchies:
 - unique_name: Order Hierarchy
   label: Order Hierarchy
   folder: Order Attributes
   levels:
   - unique_name: Order ID
+    secondary_attributes:
+    - unique_name: Order Profitable
+      label: Order Profitable?
+      description: Whether the order's total profit is positive. Modelled so the FIXED LOD is not needed
+        client-side.
+      dataset: dim_order
+      name_column: order_profitable
+      key_columns:
+      - order_id
+    - unique_name: Order Value Band
+      label: Order Value Band
+      description: Order total bucketed into five ranges.
+      dataset: dim_order
+      name_column: order_value_band
+      key_columns:
+      - order_id
+    - unique_name: Order Line Count
+      label: Lines on Order
+      description: How many order lines the order contains.
+      dataset: dim_order
+      name_column: order_line_count_label
+      key_columns:
+      - order_id
 level_attributes:
 - unique_name: Order ID
   label: Order
-  description: 'Order number, resident on the fact. This is the grain every {FIXED [Order ID]: ...} LOD
-    in the Tableau workbooks aggregates to, so it is exposed as a browsable level.'
-  dataset: fact_order_line
+  description: Order number. 5,111 distinct.
+  dataset: dim_order
+  is_unique_key: true
   key_columns:
   - order_id
   name_column: order_id

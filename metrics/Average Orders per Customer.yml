@@ -1,0 +1,9 @@
+unique_name: Average Orders per Customer
+object_type: metric
+label: Average Orders per Customer
+description: Mean number of orders per customer.
+calculation_method: average
+format: general number
+dataset: fact_customer_agg
+column: order_count
+unrelated_dimensions_handling: repeat

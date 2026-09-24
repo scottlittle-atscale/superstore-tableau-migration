@@ -1,0 +1,9 @@
+unique_name: Last Order Sales
+object_type: metric
+label: Last Order Sales
+description: Value of each customer's most recent order day. Replaces the nested point-in-time LOD.
+calculation_method: sum
+format: $#,##0.00
+dataset: fact_customer_agg
+column: last_order_sales
+unrelated_dimensions_handling: repeat

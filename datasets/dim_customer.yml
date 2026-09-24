@@ -11,3 +11,11 @@ columns:
   data_type: string
 - name: segment
   data_type: string
+- name: first_order_date
+  data_type: date
+- name: first_order_year
+  data_type: long
+- name: distinct_category_count
+  data_type: long
+- name: lifetime_sales_band
+  data_type: string

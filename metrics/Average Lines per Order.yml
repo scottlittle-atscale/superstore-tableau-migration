@@ -1,0 +1,9 @@
+unique_name: Average Lines per Order
+object_type: metric
+label: Average Lines per Order
+description: Mean number of order lines per order.
+calculation_method: average
+format: general number
+dataset: fact_order_agg
+column: order_line_count
+unrelated_dimensions_handling: repeat

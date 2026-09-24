@@ -1,0 +1,20 @@
+unique_name: fact_customer_agg
+object_type: dataset
+label: fact_customer_agg
+description: 'Customer-grain pre-aggregate (804 rows): lifetime totals, order count, and last-order values.
+  Replaces the nested point-in-time LOD.'
+connection_id: Connection - Superstore
+table: fact_customer_agg
+columns:
+- name: customer_id
+  data_type: string
+- name: lifetime_sales
+  data_type: decimal(38,9)
+- name: lifetime_profit
+  data_type: decimal(38,9)
+- name: order_count
+  data_type: long
+- name: last_order_date
+  data_type: date
+- name: last_order_sales
+  data_type: decimal(38,9)

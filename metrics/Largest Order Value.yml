@@ -1,0 +1,10 @@
+unique_name: Largest Order Value
+object_type: metric
+label: Largest Order Value
+description: Value of the single largest order. An aggregate-of-aggregate that has no client-side equivalent
+  over a semantic layer.
+calculation_method: maximum
+format: $#,##0.00
+dataset: fact_order_agg
+column: order_sales
+unrelated_dimensions_handling: repeat

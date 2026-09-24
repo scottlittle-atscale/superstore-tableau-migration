@@ -1,0 +1,16 @@
+unique_name: dim_order
+object_type: dataset
+label: dim_order
+description: Order-grain attributes (value band, profitability flag) so both the line fact and the order-grain
+  fact can slice by them. 5,111 rows, one per order.
+connection_id: Connection - Superstore
+table: dim_order
+columns:
+- name: order_id
+  data_type: string
+- name: order_profitable
+  data_type: string
+- name: order_value_band
+  data_type: string
+- name: order_line_count_label
+  data_type: string

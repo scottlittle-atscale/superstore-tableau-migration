@@ -1,0 +1,21 @@
+unique_name: fact_order_agg
+object_type: dataset
+label: fact_order_agg
+description: Order-grain pre-aggregate (5,111 rows). Carries order totals so aggregate-of-aggregate questions
+  (largest order, lines per order) are answerable without a client-side LOD. NOT related to Customer —
+  two orders carry four customer_ids each.
+connection_id: Connection - Superstore
+table: fact_order_agg
+columns:
+- name: order_id
+  data_type: string
+- name: order_date
+  data_type: date
+- name: order_sales
+  data_type: decimal(38,9)
+- name: order_profit
+  data_type: decimal(38,9)
+- name: order_quantity
+  data_type: long
+- name: order_line_count
+  data_type: long
